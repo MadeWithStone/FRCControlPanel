@@ -1,5 +1,7 @@
 /**
  * PowerAiming: Creates a view that shows the detected power cells and where they are in frame
+ *
+ * @author: Maxwell Stone
  */
 
 public class PowerAiming {
@@ -7,6 +9,11 @@ public class PowerAiming {
     private final static int canvasHeight = 480;
     private static Draw view;
 
+    /** Draws detections as powercells in the frame
+     *
+     * @param view
+     * @param detections
+     */
     public static void drawPowerCell(Draw view, double[][] detections) {
         view.setPenColor(255, 255, 0);
         for (int i = 0; i < detections.length; i++) {
@@ -21,6 +28,9 @@ public class PowerAiming {
 
     }
 
+    /**
+     *  Launches the power aiming dashboard which shows detected powercells and where they are in a video frame
+     */
     public static void launchDash() {
         // init view
         view = new Draw("Power Aiming Dashboard");
@@ -39,6 +49,11 @@ public class PowerAiming {
 
     }
 
+    /**
+     * Updates the view with new detections by clearing the frame and drawing the new detections
+     *
+     * @param detections
+     */
     public static void updateView(double[][] detections) {
         view.clear();
         // put a lines down on the screen for aiming

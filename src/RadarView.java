@@ -13,6 +13,11 @@ public class RadarView {
     private static double sizeDistRel = 0;
     private static Draw view;
 
+    /**
+     * Draws where powercells are in relationship to the robot on the radar view
+     * @param view
+     * @param detections
+     */
     public static void drawPowerCell(Draw view, double[][] detections) {
         view.setPenColor(255, 255, 0);
         for (int i = 0; i < detections.length; i++) {
@@ -33,17 +38,30 @@ public class RadarView {
 
     }
 
+    /**
+     * Uses the size to distance ratio calculated earlier to find how far the powercells are from the robot
+     * @param size
+     * @return
+     */
     public static double sizeToDistance(double size) {
         double dist = (Math.abs(size)*sizeDistRel)+testSizes[1][1];
         return dist;
     }
 
+    /**
+     * uses the center x coordinate to find the angle relative to the camera pov
+     * @param x
+     * @return
+     */
     public static double getAngle(double x) {
         double xPercent = x/canvasWidth;
         double xDegree = xPercent*fov;
         return xDegree;
     }
 
+    /**
+     * Calculates the size to distance ratio using input calibration data
+     */
     public static void sizeRel() {
         double distChange = testSizes[1][1] - testSizes[0][1];
         double sizeChange = testSizes[1][0] - testSizes[0][0];
@@ -51,6 +69,11 @@ public class RadarView {
         System.out.println("Size Dist Rel: "+sizeDistRel);
     }
 
+    /**
+     * Calculates the canvas coordinates based on the angle and distance provide
+     * @param coords
+     * @return
+     */
     public static double[] polarToRect(double[] coords) {
         // translate to center of screen
         double[] newCords = new double[2];
@@ -59,12 +82,15 @@ public class RadarView {
         return newCords;
     }
 
+    /**
+     * launches and sets up the dashboard
+     */
     public static void launchDash() {
         // init view
         view = new Draw("Radar Dashboard");
 
         // set location of view on screen
-        view.setLocationOnScreen(1, 1);
+
         view.enableDoubleBuffering();
         double[][] detections = {{0, 0, 40, 40}, {80, 30, 200, 150}};
         updateView(detections);
@@ -76,10 +102,14 @@ public class RadarView {
 
     }
 
+    /**
+     * Puts setup lines in the view like the center aiming line
+     */
     public static void setUpView() {
 
 
         // put a lines down on the screen for aiming
+        view.setLocationOnScreen(641, 1);
         Color penColor = new Color(0, 255, 0, 30);
         view.setPenColor(penColor);
         view.filledCircle(canvasWidth/2, 0, canvasWidth/2);
@@ -97,6 +127,10 @@ public class RadarView {
 
     }
 
+    /**
+     * Updates the view with new detections provide from the main class
+     * @param detections
+     */
     public static void updateView(double[][] detections) {
         view.clear();
         setUpView();

@@ -13,6 +13,7 @@ public class Main {
         runSimulation1();
     }
 
+    /** Simulation 1: runs a simulation of power cell data for testing **/
     public static void runSimulation1() {
         int size = 100;
         for (int i = 0; i < 480; i++) {
@@ -23,21 +24,8 @@ public class Main {
             RadarView.updateView(testDetections);
 
             PowerAiming.updateView(testDetections);
-            for (int j = 0; j < 50; j++) {}
+            for (int j = 0; j < 500; j++) {}
         }
     }
 
-    public static void runSimulation2() {
-        int size = 100;
-        for (int i = 0; i < 480; i++) {
-            double ballSize = size * ((480-i) / (480 * 1.0));
-            double ball2Size = size * ((0+i) / (480 * 1.0));
-            //System.out.println(ballSize);
-            double[][] testDetections = {{i, i, i + ballSize, i + ballSize}, {480-i, 480-i, 480-i - ball2Size, 480-i - ball2Size}, {320-ballSize/2, i, 320 + ballSize/2, i+ballSize}};
-            RadarView.updateView(testDetections);
-
-            PowerAiming.updateView(testDetections);
-            for (int j = 0; j < 50; j++) {}
-        }
-    }
 }
